@@ -1,36 +1,23 @@
+import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { ServerElementComponent } from './server-element/server-element.component';
-import { NgFor } from '@angular/common';
-import { CockpitComponent } from './cockpit/cockpit.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RouterOutlet, ServerElementComponent, NgFor, CockpitComponent],
+  imports: [RouterOutlet, NgFor, NgIf, NgClass, NgStyle],
 })
 export class AppComponent {
-  serverElements = [
-    { type: 'server', name: 'ohohoho', content: 'test' },
-    { type: 'blueprint', name: 'ohohoho', content: 'test' },
-  ];
-  onServerAdded(serverData: { serverName: string; serverContent: string }) {
-    this.serverElements.push({
-      type: 'server',
-      name: serverData.serverName,
-      content: serverData.serverContent,
-    });
-  }
-  onBlueprintAdded(blueprintData: {
-    blueprintName: string;
-    blueprintContent: string;
-  }) {
-    this.serverElements.push({
-      type: 'blueprint',
-      name: blueprintData.blueprintName,
-      content: blueprintData.blueprintContent,
-    });
+  numbers = [1, 2, 3, 4, 5];
+  onlyOdd = false;
+  evenNumbers = [2, 4, 6, 8];
+  oddNumbers = [1, 3, 5, 7, 9];
+  selected = true;
+
+  onChangeState() {
+    this.selected = !this.selected;
+    console.log(this.selected);
   }
 }
