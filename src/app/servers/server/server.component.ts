@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ServersService } from '../servers.service';
 import { Server } from './server.model';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 
 @Component({
   selector: 'app-server',
@@ -13,7 +13,8 @@ import { ActivatedRoute, Params } from '@angular/router';
 export class ServerComponent implements OnInit {
   constructor(
     private serversService: ServersService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private router: Router
   ) {}
   server!: Server;
 
@@ -23,5 +24,12 @@ export class ServerComponent implements OnInit {
     this.route.params.subscribe((params: Params) => {
       this.server = this.serversService.getServer(+params['id'])!;
     });
+  }
+  onEdit() {
+    this.router.navigate(['edit'], {
+      relativeTo: this.route,
+      queryParamsHandling: 'preserve',
+    }); //queryparamshandling: keep the data when clicking
+    //append the /edit to the current /servers/:id path
   }
 }
