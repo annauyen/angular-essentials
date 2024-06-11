@@ -1,23 +1,32 @@
 import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { NewAccountComponent } from './new-account/new-account.component';
+import { AccountComponent } from './account/account.component';
+import { AccountService } from './account.service';
 
 @Component({
   selector: 'app-root',
   standalone: true,
   templateUrl: './app.component.html',
   styleUrl: './app.component.css',
-  imports: [RouterOutlet, NgFor, NgIf, NgClass, NgStyle],
+  imports: [
+    RouterOutlet,
+    NgFor,
+    NgIf,
+    NgClass,
+    NgStyle,
+    NewAccountComponent,
+    AccountComponent,
+  ],
+  providers: [AccountService],
 })
-export class AppComponent {
-  numbers = [1, 2, 3, 4, 5];
-  onlyOdd = false;
-  evenNumbers = [2, 4, 6, 8];
-  oddNumbers = [1, 3, 5, 7, 9];
-  selected = true;
+export class AppComponent implements OnInit {
+  accounts: { name: string; status: string }[] = [];
 
-  onChangeState() {
-    this.selected = !this.selected;
-    console.log(this.selected);
+  constructor(private accountService: AccountService) {}
+
+  ngOnInit() {
+    this.accounts = this.accountService.accounts;
   }
 }
