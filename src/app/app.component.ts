@@ -1,9 +1,8 @@
-import { NgClass, NgFor, NgIf, NgStyle } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { NewAccountComponent } from './new-account/new-account.component';
-import { AccountComponent } from './account/account.component';
-import { AccountService } from './account.service';
+import { Component } from '@angular/core';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { HomeComponent } from './home/home.component';
+import { UsersComponent } from './users/users.component';
+import { ServersComponent } from './servers/servers.component';
 
 @Component({
   selector: 'app-root',
@@ -12,21 +11,11 @@ import { AccountService } from './account.service';
   styleUrl: './app.component.css',
   imports: [
     RouterOutlet,
-    NgFor,
-    NgIf,
-    NgClass,
-    NgStyle,
-    NewAccountComponent,
-    AccountComponent,
+    HomeComponent,
+    UsersComponent,
+    ServersComponent,
+    RouterLink,
+    RouterLinkActive,
   ],
-  providers: [AccountService],
 })
-export class AppComponent implements OnInit {
-  accounts: { name: string; status: string }[] = [];
-
-  constructor(private accountService: AccountService) {}
-
-  ngOnInit() {
-    this.accounts = this.accountService.accounts;
-  }
-}
+export class AppComponent {}
